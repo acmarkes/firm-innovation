@@ -1,8 +1,74 @@
 #%%
 import pandas as pd
 import numpy as np
+pd.set_option('display.max_columns', 500)
 
-df = pd.read_csv('../data/raw/LAIS_public.csv')
+features = {'country': 'str',
+ 'fucode': 'int',
+ 'exp_f': 'float',
+ 'year': 'int',
+ 'isic3_1d': 'str',
+ 'isic3_2d': 'float',
+ 'sales_us_Y1': 'float',
+ 'sales_us_Y2': 'float',
+ 'sales_us_Y3': 'float',
+ 'export_us_Y1': 'float',
+ 'export_us_Y2': 'float',
+ 'export_us_Y3': 'float',
+ 'dexport': 'bool',
+ 'empl_Y1': 'int',
+ 'empl_Y2': 'int',
+ 'empl_Y3': 'int',
+ 'phd_Y1': 'float',
+ 'phd_Y2': 'float',
+ 'phd_Y3': 'float',
+ 'master_Y1': 'float',
+ 'master_Y2': 'float',
+ 'master_Y3': 'float',
+ 'postgrad_Y1': 'float',
+ 'postgrad_Y2': 'float',
+ 'postgrad_Y3': 'float',
+ 'undergrad_Y1': 'float',
+ 'undergrad_Y2': 'float',
+ 'undergrad_Y3': 'float',
+ 'unidegree_Y1': 'float',
+ 'unidegree_Y2': 'float',
+ 'unidegree_Y3': 'float',
+ 'degree_nesc': 'float',
+ 'degree_et': 'float',
+ 'degree_ingnesc': 'float',
+ 'degree_ssc': 'float',
+ 'degree_medsc': 'float',
+ 'degree_agrsc': 'float',
+ 'degree_hum': 'float',
+ 'nontert_Y1': 'float',
+ 'nontert_Y2': 'float',
+ 'nontert_Y3': 'float',
+ 'second_Y1': 'float',
+ 'second_Y2': 'float',
+ 'second_Y3': 'float',
+ 'RD_empl': 'int',
+ 'ict_mach_us_Y1': 'float',
+ 'IPexp_us_Y1': 'float',
+ 'ict_mach_us_Y2': 'float',
+ 'IPexp_us_Y2': 'float',
+ 'drdintexp': 'int',
+ 'drdextexp': 'float',
+ 'dictexp': 'float',
+ 'dmachexp': 'float',
+ 'dict_mach': 'int',
+ 'dTTexp': 'int',
+ 'dconexp': 'int',
+ 'dIPexp': 'int',
+ 'dtrainexp': 'int',
+ 'dIDexp': 'int',
+ 'dmktexp': 'int',
+ 'dongoingia': 'int',
+ 'dabandia': 'int',
+ 'dinnpd': 'int',
+ 'dinnpc': 'int'}
+
+df = pd.read_csv('../data/raw/LAIS_public.csv',usecols=features.keys())#, dtype=features)
 
 df['dinn'] = 0
 df.dinnpd = df.dinnpd.astype('Int32')
@@ -10,15 +76,6 @@ df.dinnpc = df.dinnpc.astype('Int32')
 df.loc[(df.dinnpd==1) | (df.dinnpc==1),'dinn']=1
 
 target = 'dinn'
-
-features = ['country','fucode','exp_f','year','isic3_1d','isic3_2d','sales_us_Y1','sales_us_Y2','sales_us_Y3',
-'export_us_Y1','export_us_Y2','export_us_Y3','dexport','empl_Y1','empl_Y2','empl_Y3','phd_Y1','phd_Y2','phd_Y3',
-'master_Y1','master_Y2','master_Y3','postgrad_Y1','postgrad_Y2','postgrad_Y3','undergrad_Y1','undergrad_Y2','undergrad_Y3',
-'unidegree_Y1','unidegree_Y2','unidegree_Y3','degree_nesc','degree_et','degree_ingnesc','degree_ssc','degree_medsc','degree_agrsc','degree_hum',
-'nontert_Y1','nontert_Y2','nontert_Y3','second_Y1','second_Y2','second_Y3',
-'RD_empl','ict_mach_us_Y1','IPexp_us_Y1','ict_mach_us_Y2','IPexp_us_Y2','drdintexp',
-'drdextexp','dictexp','dmachexp','dict_mach','dTTexp','dconexp','dIPexp','dtrainexp','dIDexp','dmktexp','dongoingia','dabandia']
-
 
 target_index = df[target].dropna().index
 #df_target = df.drop(target_index)
