@@ -4,7 +4,7 @@ import numpy as np
 pd.set_option('display.max_columns', 500)
 
 features = {'country': 'str',
- 'fucode': 'int',
+ 'firm_id':'str',   
  'exp_f': 'float',
  'year': 'int',
  'isic3_1d': 'str',
@@ -63,17 +63,16 @@ features = {'country': 'str',
  'dtrainexp': 'int',
  'dIDexp': 'int',
  'dmktexp': 'int',
- 'dongoingia': 'int',
- 'dabandia': 'int',
  'dinnpd': 'int',
  'dinnpc': 'int',
- 'innpd_scp':'int',
- 'innpc_scp':'int'
+#  'innpd_scp':'int',
+#  'innpc_scp':'int'
 }
 
 df_og = pd.read_csv('../data/raw/LAIS_public.csv',usecols=features.keys())#, dtype=features)
 #%%
 df = df_og.copy()
+
 df['dinn'] = 0
 df.dinnpd = df.dinnpd.astype('Int32')
 df.dinnpc = df.dinnpc.astype('Int32')
